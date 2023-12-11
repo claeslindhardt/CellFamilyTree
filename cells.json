@@ -1,0 +1,29 @@
+{
+  "cell_types": [
+    {
+      "name": "endothelial cell",
+      "location": "blood vessels",
+      "biomarkers": ["CD31", "CD34", "VE-cadherin"]
+    },
+    {
+      "name": "epithelial cell",
+      "location": "skin, mucous membranes, glands",
+      "biomarkers": ["E-cadherin", "keratin", "EpCAM"]
+    },
+    {
+      "name": "neuron",
+      "location": "brain, spinal cord, nerves",
+      "biomarkers": ["NeuN", "MAP2", "synaptophysin"]
+    },
+    {
+      "name": "astrocyte",
+      "location": "brain, spinal cord",
+      "biomarkers": ["GFAP", "S100B", "ALDH1L1"]
+    },
+    {
+      "name": "cardiomyocyte",
+      "location": "heart",
+      "biomarkers": ["cTnT", "cTnI", "MYH6"]
+    }
+  ]
+}
