@@ -21,13 +21,18 @@ with open("cell_types.csv", "w", newline="") as csv_file:
   writer.writerow(headers)
   writer.writerows(rows)
 
-# Print the wikitable sortable static-row-numbers
-print("{| class=\"wikitable sortable static-row-numbers\"")
-print("|-")
-for header in headers:
-  print("! " + header)
-for row in rows:
-  print("|-")
-  for cell in row:
-    print("| " + str(cell))
-print("|}")
+# Open a text file and write the wikitable
+with open("wikitable.txt", "w") as text_file:
+  text_file.write("{| class=\"wikitable sortable static-row-numbers\"\n")
+  text_file.write("|-\n")
+  for header in headers:
+    text_file.write("! " + header + "\n")
+  for row in rows:
+    text_file.write("|-\n")
+    for cell in row:
+      text_file.write("| " + str(cell) + "\n")
+  text_file.write("|}")
+
+# Close the text file
+text_file.close()
+
