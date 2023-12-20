@@ -4,6 +4,8 @@
 #TODO: standardize local/global variable convention, to avoid repeating variables or unintented linking
 #============================================================================
 # ||||||||||||||MAKE OUTPUT FOLDER
+# Input: non
+# Output:  a local folder
 #============================================================================
 # import the os module
 import os
@@ -29,6 +31,8 @@ else:
 #||||||||||||||ONLINE TO LOCAL STORAGE
 # Getting the information from an online website onto local JSON files
 # and putting them in the folder we created
+# Input: A web URL that returns a JSON file
+# Output:  A locally stored JSON file from HUBmap
 #============================================================================
 # -*- coding: utf-8 -*-
 import pandas as pd
@@ -70,6 +74,8 @@ print("Finished saving data locally")
 #============================================================================
 # |||||||||||||| DATAMINE
 # Mine the relavant data from the big json file.
+# Input: A locally stored JSON file from HUBmap
+# Output: A locally stored JSON file with only the data relevant for wikipedia
 #============================================================================
 #TODO: fix the datamining so that it does not only work for blood.
 
@@ -115,11 +121,12 @@ print("Finished mining the data")
 #============================================================================
 # |||||||||||||| MAKE WIKITABLE
 # formats the mined data into a wikitable
+# Input: A locally stored JSON file with only the data relevant for wikipedia
+# Output: A .txt file with a wiki Markdown table of all the info from the Hubmap DB
 #============================================================================
-#TODO: format it into a sortable wikitable which is also collapsable or scrollable
-#TODO: format it so that it is on the same format as the table on list of cells
-#TODO: Make it go directly from JSON to wikitable.(try out updated code)
-#TODO: include Biomarkers
+#TODO: find a way to make the scrollable function work even for long lists
+#TODO: integrate the code for adding hyper link references, 
+#TODO: make hyperlinks and wiki sources on the cells, locations and biomarkers for which it is available
 
 import json
 
@@ -169,4 +176,6 @@ text_file.close()
 # Make a list of merge conflicts with current table on wikie
 # Take hyperlinks from current WIKITABLE on wii
 # Make a suggestion for what an updated wiki table could look like
+# Input: A Link to a wikipedia article, as well as a locally stored .txt file with a draft for a table with new data
+# Output:  A list of differences, merge conflicts and a draft for a new updated table
 #============================================================================
