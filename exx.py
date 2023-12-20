@@ -7,6 +7,8 @@
 # Input: non
 # Output:  a local folder
 #============================================================================
+#TODO: consider to make it delete the folder if there is one already, or give it another name
+
 # import the os module
 import os
 
@@ -34,6 +36,8 @@ else:
 # Input: A web URL that returns a JSON file
 # Output:  A locally stored JSON file from HUBmap
 #============================================================================
+#TODO: consider to make it delete the file if there is one already, or give it another name
+
 # -*- coding: utf-8 -*-
 import pandas as pd
 import glob
