@@ -131,6 +131,8 @@ print("Finished mining the data")
 #TODO: find a way to make the scrollable function work even for long lists
 #TODO: integrate the code for adding hyper link references, 
 #TODO: make hyperlinks and wiki sources on the cells, locations and biomarkers for which it is available
+#TODO: make sure that the list is sorted alfabetically
+#TODO: every time there is more then 5000(or whatever the styles2.css have as an upper limit) entries start a new table 
 
 import json
 
