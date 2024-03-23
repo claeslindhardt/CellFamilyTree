@@ -168,7 +168,7 @@ with open("filtered__celllist_noDublicates.json", "w") as f:
 '''
 
 # Format the extracted data to fit the wiki table json format:
-
+#Todo: Here you need to add nul(like e. g: - "3": null, - for all the empty enteries
 import json
 
 def transform_json(input_json):
@@ -199,8 +199,45 @@ def transform_json(input_json):
         transformed_dict["Location in Body"][str(idx)] = location
         transformed_dict["Known biomarkers"][str(idx)] = ", ".join(biomarkers) if biomarkers else None
 
+        # Inserting null for the specified keys
+        null_keys = ["Progenitor (precursor cell)", "Predecessor Cells", "Function",
+                     "Cell type", "Cell subtype", "Originally derived from"]
+        for key in null_keys:
+            transformed_dict[key][str(idx)] = None
+
     return transformed_dict
 
+'''
+def transform_json(input_json):
+    """
+    Transforms input JSON into the desired format.
+
+    Args:
+        input_json (list): Input JSON in the given format.
+
+    Returns:
+        dict: Transformed dictionary in the desired format.
+    """
+    transformed_dict = {
+        "Name": {},
+        "Progenitor (precursor cell)": {},
+        "Predecessor Cells": {},
+        "Location in Body": {},
+        "Function": {},
+        "Cell type": {},
+        "Cell subtype": {},
+        "Originally derived from": {},
+        "Known biomarkers": {}
+    }
+
+    for idx, item in enumerate(input_json):
+        name, location, biomarkers = item
+        transformed_dict["Name"][str(idx)] = name
+        transformed_dict["Location in Body"][str(idx)] = location
+        transformed_dict["Known biomarkers"][str(idx)] = ", ".join(biomarkers) if biomarkers else None
+
+    return transformed_dict
+'''
 transformed_result = transform_json(unique_list)
 with open("Transformed__celllist.json", "w") as f:
      json.dump(transformed_result, f, indent=4)
@@ -238,6 +275,57 @@ df.to_json('current_wikitalbe.json')
 #============================================================================
 
 
+#Concatenate the json object we got from HUBmap and the one we got from wiki-----
+import json
+
+def concatenate_dicts(dict1, dict2):
+    # Find the highest index in dict1 to avoid overwriting
+    highest_index = max(int(k) for v in dict1.values() for k in v.keys())
+
+    # Append entries from dict2 to dict1 with unique keys
+    for key, value in dict2.items():
+        if key in dict1:
+            for subkey, subvalue in value.items():
+                new_key = str(int(subkey) + highest_index + 1)
+                dict1[key][new_key] = subvalue
+        else:
+            dict1[key] = value
+    return dict1
+
+
+# Load the first JSON file
+with open('current_wikitalbe.json', 'r') as file:
+    data1 = json.load(file)
+
+# Load the second JSON file
+with open('Transformed__celllist.json', 'r') as file:
+    data2 = json.load(file)
+
+# Concatenate the contents of the two JSON files
+concatenated_data = concatenate_dicts(data1, data2)
+
+# Save the concatenated content to a new JSON file
+with open('concatenated_file.json', 'w') as file:
+    json.dump(concatenated_data, file, indent=4)
+
+print("The contents of the two JSON files have been concatenated successfully.")
+
+
+#Sort it alphabetically--------------------------------------------------------------------
+'''
+# Assuming the JSON data is stored in a file named 'data.json'
+with open('concatenated_file.json', 'r') as file:
+    data = json.load(file)
+
+# Sorting the data based on the 'Name' field
+sorted_data = {key: value for key, value in sorted(data.items(), key=lambda item: item[1]['Name'])}
+
+# Writing the sorted data back to a file
+with open('sorted_data.json', 'w') as file:
+    json.dump(sorted_data, file, indent=4)
+
+print("The JSON data has been sorted alphabetically by the 'Name' field and saved to 'sorted_data.json'")
+'''
 
 #%%
 #============================================================================
@@ -256,7 +344,7 @@ df.to_json('current_wikitalbe.json')
 import json
 
 # Read JSON data from a file
-with open('current_wikitalbe.json', 'r') as file:
+with open('concatenated_file.json', 'r') as file:
     data = json.load(file)
 
 
